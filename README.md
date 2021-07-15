@@ -1,4 +1,6 @@
 # `mass_audio`
+![build badge](https://github.com/anuejn/mass_audio/actions/workflows/build.yml/badge.svg)
+
 An experiment for distributing audio over a connectionless wifi mesh network in
 highly dynamic network situations such as "critical mass" bike tours.
 
