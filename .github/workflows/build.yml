@@ -1,0 +1,16 @@
+name: build
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: install esp-idf toolchain
+        run: |
+          sudo apt-get install -y -qqq libncurses5-dev
+          ./esp-adf/esp-idf/install.sh
+      - name: build
+        run:
+          . ./setup_env.sh
+          make -j$(nproc)

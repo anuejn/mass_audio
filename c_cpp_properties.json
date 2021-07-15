@@ -1,0 +1,19 @@
+{
+    "configurations": [
+      {
+        "name": "Linux",
+        "cStandard": "c11",
+        "cppStandard": "c++17",
+        "includePath": [
+          "${workspaceFolder}/**"
+        ],
+        "browse": {
+          "path": [
+            "${workspaceFolder}"
+          ],
+          "limitSymbolsToIncludedHeaders": false
+        }
+      }
+    ],
+    "version": 4
+  }

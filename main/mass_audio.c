@@ -1,50 +1,23 @@
-// Espressif ESP32 promiscuous mode and packet injection experiments
-// by brainstorm at nopcode org
-
+#include "audio_pipeline.h"
+#include "board.h"
 #include "driver/gpio.h"
 #include "esp_event.h"
 #include "esp_event_loop.h"
+#include "esp_log.h"
 #include "esp_system.h"
 #include "esp_wifi.h"
 #include "esp_wifi_internal.h"
 #include "esp_wifi_types.h"
 #include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "i2s_stream.h"
 #include "lwip/err.h"
 #include "nvs_flash.h"
-#include "string.h"
-
-#include "freertos/task.h"
-#include "esp_log.h"
-#include "audio_pipeline.h"
-#include "i2s_stream.h"
 #include "raw_stream.h"
-#include "board.h"
+
+#include "print_util.c"
 
 static const char *TAG = "MASS_AUDIO";
-
-void print_wifi_pkt_rx_ctrl(wifi_pkt_rx_ctrl_t *pkt) {
-  printf(" rssi: %d\n rate: %d\n sig_mode: %d\n mcs: %d\n cwb: %d\n smoothing: "
-         "%d\n not_sounding: %d\n aggregation: %d\n stbc: %d\n fec_coding: "
-         "%d\n sgi: %d\n noise_floor: %d\n ampdu_cnt: %d\n channel: %d\n "
-         "secondary_channel: %d\n timestamp: %d\n ant: %d\n noise_floor: %d\n "
-         "sig_len: %d\n rx_state: %d\n",
-         pkt->rssi, pkt->rate, pkt->sig_mode, pkt->mcs, pkt->cwb,
-         pkt->smoothing, pkt->not_sounding, pkt->aggregation, pkt->stbc,
-         pkt->fec_coding, pkt->sgi, pkt->noise_floor, pkt->ampdu_cnt,
-         pkt->channel, pkt->secondary_channel, pkt->timestamp, pkt->ant,
-         pkt->noise_floor, pkt->sig_len, pkt->rx_state);
-}
-
-#define COLS 16
-void hex_dump(char *buf, unsigned len) {
-  for (int i = 0; i < len; i += COLS) {
-    printf("%04x \t", i);
-    for (int x = 0; ((i + x) < len) && (x < COLS); x++) {
-      printf("%02x ", buf[i + x]);
-    }
-    printf("\n");
-  }
-}
 
 void process_promisc(void *buf, wifi_promiscuous_pkt_type_t type) {
   if (type == WIFI_PKT_DATA) {
@@ -88,6 +61,7 @@ void send_task(void *pvParameter) {
 }
 
 esp_err_t event_handler(void *ctx, system_event_t *event) { return ESP_OK; }
+
 void app_main(void) {
   esp_log_level_set("*", ESP_LOG_INFO);
   esp_log_level_set(TAG, ESP_LOG_DEBUG);
@@ -157,7 +131,8 @@ void app_main(void) {
   ESP_LOGI(
       TAG,
       "[3.4] Link it together "
-      "[codec_chip]-->i2s_stream_reader-->i2s_stream_writer-->[codec_chip]");
+      "[codec_chip]-->i2s_stream_reader-->i2s_stream_writer-->[codec_chip]"
+  );
   const char *link_tag[2] = {"i2s_read", "massaudio_writer"};
   audio_pipeline_link(pipeline, &link_tag[0], 2);
 
