@@ -8,7 +8,7 @@ highly dynamic network situations such as "critical mass" bike tours.
 git clone --recursive https://github.com/anuejn/audio_mass  # mind the --recursive; this project makes heavy use of submodules
 
 # you may need to install the esp-idf toolchain with ./esp-adf/esp-idf/install.sh
-# as well as ncurses, flex and bison
+# as well as ncurses, gperf, flex and bison
 . ./setup_env.sh
 make -j $(nproc)
 
