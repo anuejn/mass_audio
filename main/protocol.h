@@ -1,0 +1,2 @@
+#define HEADER_SIZE 26
+#define PAYLOAD_LEN 1024

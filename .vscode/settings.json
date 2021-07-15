@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "protocol.h": "c",
+        "audio_pipeline.h": "c",
+        "raw_stream.h": "c"
+    }
+}
