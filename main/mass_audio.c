@@ -31,13 +31,13 @@ void app_main(void)
   tcpip_adapter_init();
   ESP_ERROR_CHECK(esp_event_loop_init(event_handler, NULL));
 
-  ESP_LOGI(TAG, "[ 1 ] Start codec chip");
+  ESP_LOGI(TAG, "start codec chip");
   audio_board_handle_t board_handle = audio_board_init();
   audio_hal_ctrl_codec(board_handle->audio_hal, AUDIO_HAL_CODEC_MODE_BOTH,
                        AUDIO_HAL_CTRL_START);
 
 
-  ESP_LOGI(TAG, "[ 2 ] Setting up Wifi");
+  ESP_LOGI(TAG, "setting up Wifi");
   wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
   ESP_ERROR_CHECK(esp_wifi_init(&cfg));
   ESP_ERROR_CHECK(esp_wifi_set_storage(WIFI_STORAGE_RAM));
@@ -54,14 +54,14 @@ void app_main(void)
 
   ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_AP, &ap_config));
 
-  ESP_LOGI(TAG, "[ 4 ] starting rx pipeline");
+  ESP_LOGI(TAG, "starting rx pipeline");
   init_rx();
 
-  ESP_LOGI(TAG, "[ 4 ] starting Wifi");
+  ESP_LOGI(TAG, "starting Wifi");
   ESP_ERROR_CHECK(esp_wifi_start());
   ESP_ERROR_CHECK(esp_wifi_set_ps(WIFI_PS_NONE));
   ESP_ERROR_CHECK(esp_wifi_internal_set_fix_rate(WIFI_IF_AP, true, WIFI_PHY_RATE_MCS7_SGI));
 
-  ESP_LOGI(TAG, "[ 5 ] starting tx pipeline");
+  ESP_LOGI(TAG, "starting tx pipeline");
   init_tx();
 }
