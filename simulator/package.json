@@ -1,0 +1,24 @@
+{
+  "name": "mass_audio_simulator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "esbuild index.jsx --bundle --serve --servedir=www --outdir=www/js",
+    "build": "esbuild index.jsx --bundle --outfile=out.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "AGPL-3.0",
+  "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/runtime": "^7.14.6",
+    "esbuild": "^0.12.15"
+  },
+  "dependencies": {
+    "dat-gui": "^0.5.0",
+    "react": "^17.0.2",
+    "react-dat-gui": "^4.1.1",
+    "react-dom": "^17.0.2"
+  }
+}
