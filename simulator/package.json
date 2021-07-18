@@ -18,7 +18,7 @@
   "dependencies": {
     "dat-gui": "^0.5.0",
     "react": "^17.0.2",
-    "react-dat-gui": "^4.1.1",
+    "react-dat-gui": "github:phlmn/react-dat-gui#patch-1",
     "react-dom": "^17.0.2"
   }
 }
